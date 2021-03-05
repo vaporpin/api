@@ -14,10 +14,10 @@ on:
 
 name: Continuous Integration
 
-env:
-  ROLE_ID: 4363c2ed-922e-01e6-83f8-4642eaa1a84d
-  SECRET_ID: 75e91407-21ac-9e5c-e715-f94766bf447d
-  CACERTIFICATE: ${{secrets.CACERTIFICATE}}
+# env:
+#   ROLE_ID: 4363c2ed-922e-01e6-83f8-4642eaa1a84d
+#   SECRET_ID: 75e91407-21ac-9e5c-e715-f94766bf447d
+#   CACERTIFICATE: ${{secrets.CACERTIFICATE}}
 
 jobs:
   # Run app tests
@@ -71,9 +71,9 @@ jobs:
         with:
           url: 'https://35.198.224.19:8200' # Address of running Vault instance
           method: approle
-          roleId: ${{ env.ROLE_ID }}
-          secretId: ${{ env.SECRET_ID }}
-          caCertificate: ${{ env.CACERTIFICATE }}
+          roleId: ${{ secret.roleId }}
+          secretId: ${{ secret.secretId }}
+          caCertificate: ${{ secret.VAULTCA }}
 
           # exportEnv: false
           # Alternative using IAM user (https://www.vaultproject.io/docs/secrets/aws#usage):
