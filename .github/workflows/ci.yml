@@ -84,9 +84,6 @@ jobs:
           #   /aws/sts/ecr-push secret_key | AWS_SECRET_ACCESS_KEY ;
           #   /aws/sts/ecr-push security_token | AWS_SESSION_TOKEN
 
-          secrets: |
-            gcp/token/terraform-gcp-roleset security_token | GCP_SESSION_TOKEN
-
       # # Authenticate with AWS using temporary credentials (https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html)
       # - name: Configure AWS credentials
       #   uses: aws-actions/configure-aws-credentials@v1
