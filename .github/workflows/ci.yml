@@ -71,9 +71,9 @@ jobs:
         with:
           url: 'https://35.198.224.19:8200' # Address of running Vault instance
           method: approle
-          roleId: ${{ secret.roleId }}
-          secretId: ${{ secret.secretId }}
-          caCertificate: ${{ secret.VAULTCA }}
+          roleId: ${{ secrets.roleId }}
+          secretId: ${{ secrets.secretId }}
+          caCertificate: ${{ secrets.VAULTCA }}
 
           # exportEnv: false
           # Alternative using IAM user (https://www.vaultproject.io/docs/secrets/aws#usage):
