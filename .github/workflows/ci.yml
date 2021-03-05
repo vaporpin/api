@@ -47,6 +47,7 @@ jobs:
 
     # Upon merge to master branch
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
