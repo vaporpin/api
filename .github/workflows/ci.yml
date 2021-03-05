@@ -14,9 +14,9 @@ on:
 
 name: Continuous Integration
 
-env:
-  AWS_REGION: eu-west-1
-  ECR_REPOSITORY: cakely-registry
+# env:
+#   AWS_REGION: eu-west-1
+#   ECR_REPOSITORY: cakely-registry
 
 jobs:
   # Run app tests
