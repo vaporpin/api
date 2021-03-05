@@ -72,9 +72,9 @@ jobs:
           method: approle
           # roleId: ${{ env.ROLE_ID }}
           # secretId: ${{ env.SECRET_ID }}
-          roleId: '4363c2ed-922e-01e6-83f8-4642eaa1a84d'
-          secretId: '75e91407-21ac-9e5c-e715-f94766bf447d'
-          exportEnv: false
+          roleId: 4363c2ed-922e-01e6-83f8-4642eaa1a84d
+          secretId: 75e91407-21ac-9e5c-e715-f94766bf447d
+          # exportEnv: false
           # Alternative using IAM user (https://www.vaultproject.io/docs/secrets/aws#usage):
           # secrets: |
           #   /aws/creds/ecr-push access_key | AWS_ACCESS_KEY_ID ;
