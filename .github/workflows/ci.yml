@@ -81,7 +81,7 @@ jobs:
           #   /aws/creds/ecr-push access_key | AWS_ACCESS_KEY_ID ;
           #   /aws/creds/ecr-push secret_key | AWS_SECRET_ACCESS_KEY
           secrets: |
-            /gcp/token/ terraform-gcp-roleset | GCP_SESSION_TOKEN ;
+            /gcp/token/terraform-gcp-roleset token | GCP_SESSION_TOKEN ;
           #   /aws/sts/ecr-push secret_key | AWS_SECRET_ACCESS_KEY ;
           #   /aws/sts/ecr-push security_token | AWS_SESSION_TOKEN
 
