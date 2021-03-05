@@ -6,7 +6,7 @@ on:
       - .github/workflows/**
   pull_request:
     branches:
-    - master
+      - master
     types: [opened, reopened, synchronize]
     paths-ignore:
       - .github/workflows/**
@@ -20,31 +20,31 @@ env:
 
 jobs:
   # Run app tests
-  test:
-    # "Any self hosted runner made available to me will work"
-    runs-on: self-hosted
-    steps:
-    - uses: actions/checkout@v2
+  # test:
+  #   # "Any self hosted runner made available to me will work"
+  #   runs-on: self-hosted
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-    - run: npm install
+  #     - run: npm install
 
-    - run: npm run lint
-    
-    - run: npm run test
-      env:
-        APP_ID: api
-        PORT: 3000
-        LOG_LEVEL: debug
-        REQUEST_LIMIT: 100kb
-        SESSION_SECRET: mySecret
-        OPENAPI_SPEC: '/api/v1/spec:'
-        
+  #     - run: npm run lint
+
+  #     - run: npm run test
+  #       env:
+  #         APP_ID: api
+  #         PORT: 3000
+  #         LOG_LEVEL: debug
+  #         REQUEST_LIMIT: 100kb
+  #         SESSION_SECRET: mySecret
+  #         OPENAPI_SPEC: '/api/v1/spec:'
+
   # Build and push image to Elastic Container Registry
   push:
-    needs: test
+    #needs: test
     # "Only self hosted runners tagged ecr-push will work"
-    runs-on: [self-hosted, ecr-push]
-    
+    #runs-on: [self-hosted, ecr-push]
+
     # Upon merge to master branch
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
@@ -56,53 +56,55 @@ jobs:
         run: |
           echo "::add-mask::$ROLE_ID"
           echo "::add-mask::$SECRET_ID"
-          
+
       - name: Set environment variables
         run: |
           echo "::set-env name=ROLE_ID::$ROLE_ID"
           echo "::set-env name=SECRET_ID::$SECRET_ID"
-        
+
       # Import secrets from Vault
       - name: Import Secrets
         uses: hashicorp/vault-action@v1.0.1
         id: secrets
         with:
-          url: 'http://localhost:8200'    # Address of running Vault instance
+          url: 'https://35.198.224.19:8200' # Address of running Vault instance
           method: approle
-          roleId: ${{ env.ROLE_ID }}
-          secretId: ${{ env.SECRET_ID }}
+          # roleId: ${{ env.ROLE_ID }}
+          # secretId: ${{ env.SECRET_ID }}
+          roleId: '4363c2ed-922e-01e6-83f8-4642eaa1a84d'
+          secretId: '75e91407-21ac-9e5c-e715-f94766bf447d'
           exportEnv: false
           # Alternative using IAM user (https://www.vaultproject.io/docs/secrets/aws#usage):
           # secrets: |
           #   /aws/creds/ecr-push access_key | AWS_ACCESS_KEY_ID ;
           #   /aws/creds/ecr-push secret_key | AWS_SECRET_ACCESS_KEY
-          secrets: |
-              /aws/sts/ecr-push access_key | AWS_ACCESS_KEY_ID ;
-              /aws/sts/ecr-push secret_key | AWS_SECRET_ACCESS_KEY ;
-              /aws/sts/ecr-push security_token | AWS_SESSION_TOKEN
+      #     secrets: |
+      #       /aws/sts/ecr-push access_key | AWS_ACCESS_KEY_ID ;
+      #       /aws/sts/ecr-push secret_key | AWS_SECRET_ACCESS_KEY ;
+      #       /aws/sts/ecr-push security_token | AWS_SESSION_TOKEN
 
-      # Authenticate with AWS using temporary credentials (https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html)
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ steps.secrets.outputs.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ steps.secrets.outputs.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ steps.secrets.outputs.AWS_SESSION_TOKEN }}
-          aws-region: ${{ env.AWS_REGION }}
-        
-      - name: Log in to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+      # # Authenticate with AWS using temporary credentials (https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html)
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ steps.secrets.outputs.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ steps.secrets.outputs.AWS_SECRET_ACCESS_KEY }}
+      #     aws-session-token: ${{ steps.secrets.outputs.AWS_SESSION_TOKEN }}
+      #     aws-region: ${{ env.AWS_REGION }}
 
-      - name: Build, tag, and push image to Amazon ECR
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
-        # 00000000000000.dkr.ecr.my-region.amazonaws.com/cakely-registry:823498longsha8382934
-        run: |
-          docker build -t ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG} .
-          docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
+      # - name: Log in to Amazon ECR
+      #   id: login-ecr
+      #   uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Log out of Amazon ECR
-        if: always()
-        run: docker logout ${{ steps.login-ecr.outputs.registry }}
+      # - name: Build, tag, and push image to Amazon ECR
+      #   env:
+      #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      #     IMAGE_TAG: ${{ github.sha }}
+      #   # 00000000000000.dkr.ecr.my-region.amazonaws.com/cakely-registry:823498longsha8382934
+      #   run: |
+      #     docker build -t ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG} .
+      #     docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
+
+      # - name: Log out of Amazon ECR
+      #   if: always()
+      #   run: docker logout ${{ steps.login-ecr.outputs.registry }}
