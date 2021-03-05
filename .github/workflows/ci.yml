@@ -74,7 +74,7 @@ jobs:
           # secretId: ${{ env.SECRET_ID }}
           roleId: '4363c2ed-922e-01e6-83f8-4642eaa1a84d'
           secretId: '75e91407-21ac-9e5c-e715-f94766bf447d'
-          caCertificate: '-----BEGIN CERTIFICATE-----
+          caCertificate: '
 MIIEVjCCAz6gAwIBAgIQJr4c8a5E4CfWsOZAPGfmgDANBgkqhkiG9w0BAQsFADCB
 xDELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRUwEwYDVQQHEwxUaGUgSW50cmFu
 ZXQxGzAZBgNVBAkTEjEyMyBFeGFtcGxlIFN0cmVldDETMBEGA1UEERMKOTU1NTkt
@@ -98,8 +98,7 @@ JW9BBoqpPk8snVmDTullN7qwlKakp8FisLIfbqLdMmvnPzKOILFY302OPLc5kJxc
 rE3L0zXWBwv6xe+OU/lmgRBMVDmChvFcRi07281Jv2RNbUukHftgRrxOdAqxd9O8
 f095XAbDf/48E4F84ARTS1Z/nrpS2A2oO1g4nsxWOF1ZnODjIee+FArfGEQANkvO
 GsSI9giEf6IagR1TvJk4KzSfZGZ4W6QiYyzhlONN6gE0vcCm55kO88ccY25Nps3R
-cpEsuvhf+Vw9KA==
------END CERTIFICATE-----'
+cpEsuvhf+Vw9KA=='
 
           # exportEnv: false
           # Alternative using IAM user (https://www.vaultproject.io/docs/secrets/aws#usage):
