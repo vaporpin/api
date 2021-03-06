@@ -64,7 +64,7 @@ jobs:
       #     echo "::set-env name=ROLE_ID::$ROLE_ID"
       #     echo "::set-env name=SECRET_ID::$SECRET_ID"
 
-      # Import secrets from Vault
+      # Import secrets from Vault updated
       - name: Import Secrets
         uses: hashicorp/vault-action@v2.1.2
         id: secrets
