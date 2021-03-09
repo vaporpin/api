@@ -14,6 +14,13 @@ on:
 
 name: Continuous Integration
 
+env:
+  PROJECT_ID: misc-306709
+  # GKE_CLUSTER: cluster-1 # TODO: update to cluster name
+  # GKE_ZONE: us-central1-c # TODO: update to cluster zone
+  # DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
+  # IMAGE: static-site
+
 # env:
 #   ROLE_ID: 4363c2ed-922e-01e6-83f8-4642eaa1a84d
 #   SECRET_ID: 75e91407-21ac-9e5c-e715-f94766bf447d
@@ -85,6 +92,20 @@ jobs:
             gcp/token/terraform-gcp-roleset token | GCP_SESSION_TOKEN ;
           #   /aws/sts/ecr-push secret_key | AWS_SECRET_ACCESS_KEY ;
           #   /aws/sts/ecr-push security_token | AWS_SESSION_TOKEN
+
+      - name: Setup, Build, Publish, and Deploy
+        runs-on: ubuntu-latest
+        environment: production
+
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v2
+
+          # Setup gcloud CLI
+          - uses: google-github-actions/setup-gcloud@v0.2.0
+            with:
+              service_account_key: ${{ steps.secrets.outputs.GCP_SESSION_TOKEN }}
+              project_id: ${{ secrets.GKE_PROJECT }}
 
       - name: Print out
         # 00000000000000.dkr.ecr.my-region.amazonaws.com/cakely-registry:823498longsha8382934
