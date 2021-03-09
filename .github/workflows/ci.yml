@@ -93,25 +93,24 @@ jobs:
           #   /aws/sts/ecr-push secret_key | AWS_SECRET_ACCESS_KEY ;
           #   /aws/sts/ecr-push security_token | AWS_SESSION_TOKEN
 
-      - name: Setup, Build, Publish, and Deploy
-        runs-on: ubuntu-latest
-        environment: production
-
-        steps:
-          - name: Checkout
-            uses: actions/checkout@v2
-
-          # Setup gcloud CLI
-          - uses: google-github-actions/setup-gcloud@v0.2.0
-            with:
-              service_account_key: ${{ steps.secrets.outputs.GCP_SESSION_TOKEN }}
-              project_id: ${{ secrets.GKE_PROJECT }}
-
       - name: Print out
         # 00000000000000.dkr.ecr.my-region.amazonaws.com/cakely-registry:823498longsha8382934
         run: |
           echo "::set-output ${{ steps.secrets.outputs.GCP_SESSION_TOKEN }}\n"
 
+      - name: Setup, Build, Publish, and Deploy
+      #   runs-on: ubuntu-latest
+      #   environment: production
+
+      #   steps:
+      #     - name: Checkout
+      #       uses: actions/checkout@v2
+
+      # Setup gcloud CLI
+      - uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          service_account_key: ${{ steps.secrets.outputs.GCP_SESSION_TOKEN }}
+          project_id: ${{ secrets.GKE_PROJECT }}
       # # Authenticate with AWS using temporary credentials (https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html)
       # - name: Configure AWS credentials
       #   uses: aws-actions/configure-aws-credentials@v1
