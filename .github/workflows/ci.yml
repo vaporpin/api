@@ -73,7 +73,7 @@ jobs:
           #method: approle
           # roleId: ${{ secrets.ROLEID }}
           # secretId: ${{ secrets.SECRETID }}
-          token: s.nPlEASbtL5kA14nxMuRluu7H
+          token: s.YZzXj0OMDxs3oorypnTha6yA
           caCertificate: ${{ secrets.VAULTCA }}
           tlsSkipVerify: true
           # secrets: gcp/token/terraform-gcp-roleset gcpToken
