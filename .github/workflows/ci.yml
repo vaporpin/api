@@ -99,18 +99,10 @@ jobs:
           echo "::set-output ${{ steps.secrets.outputs.GCP_SESSION_TOKEN }}\n"
 
       - name: Setup, Build, Publish, and Deploy
-      #   runs-on: ubuntu-latest
-      #   environment: production
-
-      #   steps:
-      #     - name: Checkout
-      #       uses: actions/checkout@v2
-
-      # Setup gcloud CLI
-        - uses: google-github-actions/setup-gcloud@v0.2.0
-          with:
-            service_account_key: ${{ steps.secrets.outputs.GCP_SESSION_TOKEN }}
-            project_id: ${{ secrets.GKE_PROJECT }}
+        uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          service_account_key: ${{ steps.secrets.outputs.GCP_SESSION_TOKEN }}
+          project_id: ${{ secrets.GKE_PROJECT }}
       # # Authenticate with AWS using temporary credentials (https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html)
       # - name: Configure AWS credentials
       #   uses: aws-actions/configure-aws-credentials@v1
