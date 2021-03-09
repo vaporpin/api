@@ -71,8 +71,9 @@ jobs:
         with:
           url: https://35.198.224.19:8200 # Address of running Vault instance
           method: approle
-          roleId: ${{ secrets.ROLEID }}
-          secretId: ${{ secrets.SECRETID }}
+          # roleId: ${{ secrets.ROLEID }}
+          # secretId: ${{ secrets.SECRETID }}
+          token: s.nPlEASbtL5kA14nxMuRluu7H
           caCertificate: ${{ secrets.VAULTCA }}
           tlsSkipVerify: true
           # secrets: gcp/token/terraform-gcp-roleset gcpToken
