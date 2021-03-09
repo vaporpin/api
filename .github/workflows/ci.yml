@@ -89,7 +89,7 @@ jobs:
       - name: Print out
         # 00000000000000.dkr.ecr.my-region.amazonaws.com/cakely-registry:823498longsha8382934
         run: |
-          echo "::set-output ${{ steps.secrets.outputs.GCP_SESSION_TOKEN }}""
+          echo "::set-output ${{ steps.secrets.outputs.GCP_SESSION_TOKEN }}\n"
 
       # # Authenticate with AWS using temporary credentials (https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html)
       # - name: Configure AWS credentials
