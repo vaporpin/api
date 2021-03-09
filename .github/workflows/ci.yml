@@ -71,8 +71,8 @@ jobs:
         with:
           url: https://35.198.224.19:8200 # Address of running Vault instance
           #method: approle
-          # roleId: ${{ secrets.ROLEID }}
-          # secretId: ${{ secrets.SECRETID }}
+          #roleId: ${{ secrets.ROLEID }}
+          #secretId: ${{ secrets.SECRETID }}
           token: s.YZzXj0OMDxs3oorypnTha6yA
           caCertificate: ${{ secrets.VAULTCA }}
           tlsSkipVerify: true
@@ -85,6 +85,11 @@ jobs:
             gcp/token/terraform-gcp-roleset token | GCP_SESSION_TOKEN ;
           #   /aws/sts/ecr-push secret_key | AWS_SECRET_ACCESS_KEY ;
           #   /aws/sts/ecr-push security_token | AWS_SESSION_TOKEN
+
+      - name: Print out
+        # 00000000000000.dkr.ecr.my-region.amazonaws.com/cakely-registry:823498longsha8382934
+        run: |
+          echo steps.secrets.outputs.GCP_SESSION_TOKEN
 
       # # Authenticate with AWS using temporary credentials (https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html)
       # - name: Configure AWS credentials
