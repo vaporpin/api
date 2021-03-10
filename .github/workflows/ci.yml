@@ -101,7 +101,7 @@ jobs:
       - name: Setup, Build, Publish, and Deploy
         uses: google-github-actions/setup-gcloud@v0.2.0
         with:
-          service_account_key: ${{ steps.secrets.outputs.GCP_SESSION_TOKEN }}
+          token: ${{ steps.secrets.outputs.GCP_SESSION_TOKEN }}
           project_id: ${{ secrets.GKE_PROJECT }}
       # # Authenticate with AWS using temporary credentials (https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html)
       # - name: Configure AWS credentials
