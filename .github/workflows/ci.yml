@@ -10,7 +10,6 @@ on:
   #   types: [opened, reopened, synchronize]
   #   paths-ignore:
   #     - .github/workflows/**
-  ## workflow_dispatch:
 
 name: Continuous Integration
 
